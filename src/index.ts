@@ -22,7 +22,7 @@ const settings = {
 };
 // app.all("/red/*", auth, RED.httpAdmin);
 RED.init(server, settings);
-app.use(settings.httpAdminRoot, auth, RED.httpAdmin);
+app.use(settings.httpAdminRoot, RED.httpAdmin);
 app.use(settings.httpNodeRoot, auth, RED.httpNode);
 server.listen(settings.uiPort, () => {
   console.log(`server ready on port: ${settings.uiPort}`);
