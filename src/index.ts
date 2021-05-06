@@ -15,7 +15,7 @@ const server = http.createServer(app);
 const settings = {
   httpAdminRoot: "/red",
   httpNodeRoot: "/api",
-  userDir: "/home/.nodered/",
+  userDir: ".nodered",
   functionGlobalContext: {},
   uiPort: Number(process.env.PORT) || 1880,
   uiHost: <string>process.env.HOST || "0.0.0.0",
@@ -43,4 +43,10 @@ app.post("/login", (req, res) => {
   }
 });
 
-RED.start();
+RED.start()
+  .then(() => {
+    console.log("Node RED is running");
+  })
+  .catch((err) => {
+    console.error("something wrong: ", err.message);
+  });
