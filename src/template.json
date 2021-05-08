@@ -1,5 +1,5 @@
 {
   "iss": "DemoGenerator",
   "aud": "insectos",
-  "expSeconds": 3000
+  "expSeconds": 360000
 }

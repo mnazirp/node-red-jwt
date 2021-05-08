@@ -6,13 +6,17 @@ import template from "./template.json";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import auth from "./middleware/auth";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 const app = express();
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use("/", express.static("public"));
 const server = http.createServer(app);
 const settings = {
+  flowFile: "flows.json",
+  flowFilePretty: true,
   httpAdminRoot: "/red",
   httpNodeRoot: "/api",
   userDir: ".nodered",
@@ -22,7 +26,7 @@ const settings = {
 };
 // app.all("/red/*", auth, RED.httpAdmin);
 RED.init(server, settings);
-app.use(settings.httpAdminRoot, RED.httpAdmin);
+app.use(settings.httpAdminRoot, auth, RED.httpAdmin);
 app.use(settings.httpNodeRoot, auth, RED.httpNode);
 server.listen(settings.uiPort, () => {
   console.log(`server ready on port: ${settings.uiPort}`);
@@ -35,6 +39,10 @@ app.post("/login", (req, res) => {
     const accessToken = jwt.sign({ username, password }, sercret, {
       expiresIn: `${template.expSeconds}s`,
       mutatePayload: true,
+    });
+    res.cookie("Protenga", accessToken, {
+      maxAge: template.expSeconds,
+      httpOnly: false,
     });
     res.json({ accessToken });
   } else {

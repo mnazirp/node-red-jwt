@@ -1,0 +1,37 @@
+[
+    {
+        "id": "c51dbaaf.97b718",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6422305c.52dc",
+        "type": "http in",
+        "z": "c51dbaaf.97b718",
+        "name": "",
+        "url": "/hello",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 120,
+        "wires": [
+            [
+                "673f7720.8c8498"
+            ]
+        ]
+    },
+    {
+        "id": "673f7720.8c8498",
+        "type": "http response",
+        "z": "c51dbaaf.97b718",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 390,
+        "y": 280,
+        "wires": []
+    }
+]
